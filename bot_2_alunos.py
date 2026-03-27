@@ -191,7 +191,10 @@ async def processar_matricula(page, aba_alunos, registro, indice, total):
 async def executar_bot_gestor():
     """Função principal que orquestra todo o fluxo do bot"""
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
+        browser = await p.chromium.launch(
+            headless=False,
+            args=['--no-sandbox', '--disable-dev-shm-usage']
+        )
         context = await browser.new_context()
         page = await context.new_page()
         
