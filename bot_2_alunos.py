@@ -119,8 +119,8 @@ async def matricular_usuario(page, email, perfil):
         # Pressiona Tab até o foco chegar no botão (limite de 10 vezes para segurança)
         foco_encontrado = False
         for i in range(10):
-            await page.keyboard.press("Tab", timeout=1000)
-            #await asyncio.sleep(0.3) # Pequena pausa entre cada Tab
+            await page.keyboard.press("Tab")
+            await asyncio.sleep(0.3) # Pequena pausa entre cada Tab
             
             # Verifica se o elemento atualmente focado no navegador é o nosso botão
             is_focused = await botao_confirmar.evaluate("node => document.activeElement === node")
