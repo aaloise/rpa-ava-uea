@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Serviço principal que roda o Cron 24/7 de forma invisível
+  orquestrador_cron:
+    build: .
+    container_name: rpa_orquestrador_cron
+    environment:
+      - TZ=America/Manaus
+      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+
+  # Comandos individuais para testes manuais (bypass do Cron)
+  bot1_arquiteto:
+    build: .
+    container_name: rpa_bot1_salas
+    command: python bot_1_salas.py
+    environment:
+      - TZ=America/Manaus
+      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+
+  bot2_gestor:
+    build: .
+    container_name: rpa_bot2_matriculas
+    command: python bot_2_matriculas.py
+    environment:
+      - TZ=America/Manaus
+      - PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+
+  bot3_auditor:
+    build: .
+    container_name: rpa_bot3_auditor
+    command: python bot_3_auditor.py
+    environment:
+      - TZ=America/Manaus
+    env_file:
+      - .env
+    volumes:
+      - .:/app
